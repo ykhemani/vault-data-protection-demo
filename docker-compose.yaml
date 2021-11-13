@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  vault:
+    hostname: ${VAULT_HOSTNAME}
+    image: vault-enterirse:1.8.5_ent_demo
+    #image: hashicorp/vault-enterprise:1.7.1_ent
+    ports:
+      - 8200:8200
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/raft:/vault/raft
+      - ./vault/logs:/vault/logs
+      - ./vault/plugins:/vault/plugins
+      - ./vault/certs:/vault/certs
+      - ./vault/vaultrc:/vault/vaultrc
+      - ./vault/vault_init_keys:/vault/vault_init_keys
+      - ./vault/vault_init_unseal.sh:/vault/vault_init_unseal.sh
+      - ./vault/vault_enable_audit_log.sh:/vault/vault_enable_audit_log.sh
+      - ./vault/vault_data_protection_demo_setup.sh:/vault/vault_data_protection_demo_setup.sh
+      - ./vault/vault_postgres_demo_setup.sh:/vault/vault_postgres_demo_setup.sh
+    environment:
+      - VAULT_ADDR=${VAULT_ADDR}
+      - VAULT_SKIP_VERIFY=${VAULT_SKIP_VERIFY}
+      - VAULT_LICENSE=${VAULT_LICENSE}
+    command: vault server -config=/vault/config/vault.hcl
+    #command: vault server -dev -dev-root-token-id=root
+    cap_add:
+      - IPC_LOCK

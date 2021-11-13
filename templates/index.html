@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <div class="container" style="padding:10px">
+      <h1>{{ title }}</h1>
+      <form method="POST" action="gencc" name="cards">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Credit Card Number</th>
+                <th scope="col">Transit Encryption</th>
+                <th scope="col">Format Preserving Encryption (FPE)</th>
+                <th scope="col">Tokenization</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for card, content in ccs.items() %}
+              <tr>
+                <td><input type="text" class="form-control" name="card" id="card" value="{{card}}" readonly></td>
+                <td><input type="text" class="form-control" name="ciphertext" id="ciphertext" value="{{ content["ciphertext"] }}" readonly></td>
+                <td><input type="text" class="form-control" name="fpe" id="fpe" value="{{ content["fpe"] }}" readonly></td>
+                <td><input type="text" class="form-control" name="token" id="token" value="{{ content["token"] }}" readonly></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <h2>Generate Credit Card Numbers</h3>
+        </p>
+        <p>
+          <h4>Delimiter:</h4>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="delimiter" id="delimiter1" value=""
+              {% if card_delimiter == '' %} checked {% endif %} >
+            <label class="form-check-label" for="inlineRadio1">None</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="delimiter" id="delimiter2" value=" "
+              {% if card_delimiter == ' ' %} checked {% endif %} >
+            <label class="form-check-label" for="inlineRadio2">Space</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="delimiter" id="delimiter3" value="-"
+            {% if card_delimiter == '-' %} checked {% endif %} >
+            <label class="form-check-label" for="inlineRadio3">Hyphen</label>
+          </div>         
+        </p>
+        
+        <p>
+        <div class="btn-group" role="group" >
+          <button name="card_count" type="submit" class="btn btn-secondary" value="1">Generate 1</button>
+          <button name="card_count" type="submit" class="btn btn-secondary" value="2">Generate 2</button>
+          <button name="card_count" type="submit" class="btn btn-secondary" value="5">Generate 5</button>
+          <button name="card_count" type="submit" class="btn btn-secondary" value="10">Generate 10</button>
+          <button name="card_count" type="submit" class="btn btn-secondary" value="0">Reset</button>
+        </div>
+        </p>
+
+        <p>
+          <div class="btn-group" role="group" >
+            <button name="transit" type="submit" class="btn btn-primary" value="encrypt">Transit Encrypt</button>
+          </div>
+          <div class="btn-group" role="group" >
+            <button name="transform" type="submit" class="btn btn-primary" value="encode">FPE</button>
+          </div>
+          <div class="btn-group" role="group" >
+            <button name="tokenize" type="submit" class="btn btn-primary" value="encode">Tokenize</button>
+          </div>
+        </p>
+      </form>
+    </div>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+  </body>
+</html>

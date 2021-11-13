@@ -1,0 +1,4 @@
+FROM hashicorp/vault-enterprise:1.8.5_ent
+
+RUN set -eux; \
+  apk add --no-cache curl jq bash
