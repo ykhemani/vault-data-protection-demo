@@ -88,3 +88,19 @@ abcdefghijklmnopqrstuvwxyzåßœ
 ------------------------------------------------------------------------
 Maximum length of plain text to encode is 38
 ```
+
+```
+$ ./ff31-alphabet-helper.py --c1 A --c2 z --other "åΩß∑ç -" --plaintext "This is a really long string - too long given this alphabet"
+Alphabet has 65 characters:
+------------------------------------------------------------------------
+ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyzåΩß∑ç -
+------------------------------------------------------------------------
+Maximum length of plain text to encode is 30
+Plain text sample length is 59
+Plain text sample provided is "This is a really long string - too long given this alphabet"
+Plain text sample contains valid characters: True
+Plain text sample length is valid: False
+Split the plain text sample for encoding as follows:
+  "This is a really long string -"
+  " too long given this alphabet"
+```

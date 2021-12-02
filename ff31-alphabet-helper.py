@@ -73,6 +73,7 @@ print ("------------------------------------------------------------------------
 print ("Maximum length of plain text to encode is {}".format(length_input_max))
 
 if args.plaintext:
+  plaintext_chunks = []
   plaintext_is_valid = True
   for c in args.plaintext:
     if c not in alphabet_as_list:
@@ -83,8 +84,15 @@ if args.plaintext:
     plaintext_length_is_valid = True
   else:
     plaintext_length_is_valid = False
+  if length_plaintext > length_input_max:
+    for i in range(0, length_plaintext, length_input_max):
+      plaintext_chunks.append(args.plaintext[i : i + length_input_max])
 
   print ("Plain text sample length is {}".format(length_plaintext))
   print ("Plain text sample provided is \"{}\"".format(args.plaintext))
   print ("Plain text sample contains valid characters: {}".format(plaintext_is_valid))
   print ("Plain text sample length is valid: {}".format(plaintext_length_is_valid))
+  if len(plaintext_chunks):
+    print ("Split the plain text sample for encoding as follows:")
+    for chunk in plaintext_chunks:
+      print ("  \"{}\"".format(chunk))
